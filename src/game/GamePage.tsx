@@ -3,7 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { GamePageProps } from './gamePageTypes';
 
-function GamePage({ cookieId }: GamePageProps) {
+function GamePage({ gameCookies }: GamePageProps) {
     const params = useParams();
 
     return (

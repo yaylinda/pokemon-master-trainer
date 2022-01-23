@@ -1,3 +1,5 @@
+import { GameCookies } from "../commonTypes";
+
 export interface GamePageProps {
-    cookieId: string,
+    gameCookies: GameCookies,
 }

@@ -2,25 +2,22 @@ import { Button, Container, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { LandingPageProps } from './landingPageTypes';
 
+function LandingPage({ gameCookies }: LandingPageProps) {
 
-function LandingPage({ cookieId }: LandingPageProps) {
-    const [username, setUsername] = useState<string>();
-    
+    const createNewGame = () => {
+
+    }
+
     return (
         <Container>
             <Typography variant="h3" component="div">
                 Welcome to Pokemon Master Trainer Online!
             </Typography>
-            <Container sx={{ display: 'flex', flexDirection: 'row' }}>
-                <Typography variant="h4" component="div">
-                    What should we call you?
-                </Typography>
-                <TextField id="name" label="Name" variant="standard" onChange={e => setUsername(e.target.value)} />
-            </Container>
+            <Typography variant="h4" component="div">
+                Your name is: {gameCookies.displayName}
+            </Typography>
 
-            <Button variant="contained" >Join a Game</Button>
-            <Button variant="contained" >Start New Game</Button>
-
+            <Button variant="contained" onClick={createNewGame}>Start New Game</Button>
         </Container>
     );
 }

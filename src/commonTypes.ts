@@ -1,1 +1,4 @@
-export const blah = '';
+export interface GameCookies {
+    cookieId: string,
+    displayName: string,
+}

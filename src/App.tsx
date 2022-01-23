@@ -3,28 +3,33 @@ import { AppBar, Avatar, Container, TextField, Toolbar, Typography } from '@mui/
 import LandingPage from './landing/LandingPage';
 import GamePage from './game/GamePage';
 import { Route, Routes } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import { Cookies, useCookies } from 'react-cookie';
 import { v4 as uuidv4 } from 'uuid';
-import { POKEMON_MASTER_TRAINER_COOKIE_NAME } from './constants';
+import { generateTrainerName, POKEMON_MASTER_TRAINER_COOKIE_NAME } from './constants';
+import { GameCookies } from './commonTypes';
 
 function App() {
 
     const [cookies, setCookie, removeCookie] = useCookies([POKEMON_MASTER_TRAINER_COOKIE_NAME]);
 
-    const [cookieId, setCookieId] = useState<string>('');
+    const [gameCookies, setGameCookies] = useState<GameCookies | null>(null);
 
     useEffect(() => {
-        const existingCookieValue = cookies[POKEMON_MASTER_TRAINER_COOKIE_NAME];
-        if (!existingCookieValue) {
-            const newCookieValue = uuidv4();
-            console.log(`[App][useEffect] setting newCookieValue: ${newCookieValue}`);
-            setCookie(POKEMON_MASTER_TRAINER_COOKIE_NAME, newCookieValue);
-            setCookieId(newCookieValue);
+        const existingGameCookies = cookies[POKEMON_MASTER_TRAINER_COOKIE_NAME] as GameCookies;
+        if (!existingGameCookies) {
+            const newGameCookies = {
+                cookieId: uuidv4(),
+                displayName: generateTrainerName(),
+            };
+
+            console.log(`[App][useEffect] setting newGameCookies: ${JSON.stringify(newGameCookies)}`);
+            setCookie(POKEMON_MASTER_TRAINER_COOKIE_NAME, newGameCookies);
+            setGameCookies(newGameCookies);
         } else {
-            setCookieId(existingCookieValue);
-            console.log(`[App][useEffect] setting cookieId from existingCookieValue: ${existingCookieValue}`);
+            setGameCookies(existingGameCookies);
+            console.log(`[App][useEffect] setting cookies from existingGameCookies: ${JSON.stringify(existingGameCookies)}`);
         }
-    }, [cookies]);
+    }, []);
 
     return (
         <>
@@ -38,10 +43,15 @@ function App() {
                 </Toolbar>
             </AppBar>
 
-            <Routes>
-                <Route path="/" element={<LandingPage cookieId={cookieId} />} />
-                <Route path="game/:id" element={<GamePage cookieId={cookieId} />} />
-            </Routes>
+            {
+                gameCookies ? (
+                    <Routes>
+                        <Route path="/" element={<LandingPage gameCookies={gameCookies} />} />
+                        <Route path="game/:id" element={<GamePage gameCookies={gameCookies} />} />
+                    </Routes>
+                ) : null
+            }
+
         </>
     );
 }

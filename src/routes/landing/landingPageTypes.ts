@@ -1,4 +1,4 @@
-import { GameCookies } from "../commonTypes";
+import { GameCookies } from "../../commonTypes";
 
 export interface LandingPageProps {
     gameCookies: GameCookies,

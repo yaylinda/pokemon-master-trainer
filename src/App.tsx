@@ -1,12 +1,12 @@
+import { AppBar, Avatar, Toolbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { AppBar, Avatar, Container, TextField, Toolbar, Typography } from '@mui/material';
-import LandingPage from './landing/LandingPage';
-import GamePage from './game/GamePage';
+import { useCookies } from 'react-cookie';
 import { Route, Routes } from 'react-router-dom';
-import { Cookies, useCookies } from 'react-cookie';
 import { v4 as uuidv4 } from 'uuid';
-import { generateTrainerName, POKEMON_MASTER_TRAINER_COOKIE_NAME } from './constants';
 import { GameCookies } from './commonTypes';
+import { generateTrainerName, POKEMON_MASTER_TRAINER_COOKIE_NAME } from './constants';
+import GamePage from './routes/game/GamePage';
+import LandingPage from './routes/landing/LandingPage';
 
 function App() {
 
@@ -51,7 +51,6 @@ function App() {
                     </Routes>
                 ) : null
             }
-
         </>
     );
 }

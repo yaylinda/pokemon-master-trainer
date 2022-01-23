@@ -1,1 +1,3 @@
-export const blah = '';
+export interface GamePageProps {
+    cookieId: string,
+}

@@ -4,19 +4,20 @@ export interface PokemonPiece {
     rank: PokemonPieceRank,
     powerPoints: number,
     attackStrength: number,
+    spriteUrl: string,
 }
 
 export interface WildPokemonPiece extends PokemonPiece {
-    diceRoll: number[],
+    diceRolls: number[],
 }
 
 export enum PokemonPieceRank {
-    STARTER,
-    PINK,
-    GREEN,
-    BLUE,
-    RED,
-    YELLOW
+    STARTER = 'STARTER',
+    PINK = 'PINK',
+    GREEN = 'GREEN',
+    BLUE = 'BLUE',
+    RED = 'RED',
+    YELLOW = 'YELLOW',
 }
 
 export interface PokemonPieceAttack {

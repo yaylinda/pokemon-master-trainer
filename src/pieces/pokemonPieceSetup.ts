@@ -1,29 +1,32 @@
-import { PokemonPiece, PokemonPieceRank } from "./gamePieceTypes";
-import { pokemonSprites, PokemonSprite } from "./pokemonSprites";
+import { randomInteger } from "../constants";
+import { PokemonPiece, PokemonPieceRank, WildPokemonPiece } from "./gamePieceTypes";
+import { pokemonSprites, PokemonSprite, PokemonSpriteWithId } from "./pokemonSprites";
 
 /**
  * 
  */
-const pokemonSpriteByName: { [key: string]: PokemonSprite } =
+const pokemonSpriteByName: { [key: string]: PokemonSpriteWithId } =
   pokemonSprites
     .filter((p) => p.pokemon_variant === "None")
     .filter((p) => p.sprite_type === "Normal")
     .filter((p) => p.pokemon_name !== "Mew")
     .map((p: PokemonSprite, index) => {
-      p["id"] = index + 1;
-      return p;
+      return {
+          ...p,
+          id: index + 1,
+      } as PokemonSpriteWithId;
     })
     .reduce((prev, curr) => {
       return {
         ...prev,
         [curr.pokemon_name]: curr,
-      };
+      } as PokemonSpriteWithId;
     }, {});
 
 /**
  * 
  */
-const starterPieceByName: { [key: string]: Partial<PokemonPiece> } = {
+const starterPieceByName: { [key: string]: { rank: PokemonPieceRank, powerPoints: number, attackStrength: number } } = {
     'Charmander': {
         rank: PokemonPieceRank.STARTER,
         powerPoints: 5,
@@ -64,7 +67,7 @@ const starterPieceByName: { [key: string]: Partial<PokemonPiece> } = {
 /**
  * 
  */
-const rankByName = {
+const wildPieceByName: { [key: string]: { rank: PokemonPieceRank, powerPoints: number, attackStrength?: number } } = {
     'Bellsprout': { rank: PokemonPieceRank.PINK, powerPoints: 2, },
     'Caterpie': { rank: PokemonPieceRank.PINK, powerPoints: 2, },
     'Doduo': { rank: PokemonPieceRank.PINK, powerPoints: 2, },
@@ -222,41 +225,118 @@ const rankByName = {
 /**
  * 
  */
-const pieceConfigByRank = {
+const pieceConfigByRank: { [key in PokemonPieceRank]?: {
+    numDiceRolls: number, 
+    attackStrength: { [att: string] : number }, 
+    attackStrengthOptions: number[] 
+}} = {
     [PokemonPieceRank.PINK]: {
         numDiceRolls: 3,
         attackStrength: {
-            1: 2/7,
-            2: 3/7,
-            3: 2/7,
+            '1': 2/7,
+            '2': 3/7,
+            '3': 2/7,
         },
+        attackStrengthOptions: [1, 2, 3],
     },
     [PokemonPieceRank.GREEN]: {
         numDiceRolls: 2,
         attackStrength: {
-            3: 2/9,
-            4: 4/9,
-            5: 3/9,
+            '3': 2/9,
+            '4': 4/9,
+            '5': 3/9,
         },
+        attackStrengthOptions: [3, 4, 5],
     },
     [PokemonPieceRank.BLUE]: {
         numDiceRolls: 2,
         attackStrength: {
-            5: 0.375,
-            6: 0.375,
-            7: 0.25,
+            '5': 0.375,
+            '6': 0.375,
+            '7': 0.25,
         },
+        attackStrengthOptions: [5, 6, 7],
     },
     [PokemonPieceRank.RED]: {
         numDiceRolls: 1,
         attackStrength: {
-            7: 0.5,
-            8: 0.5,
+            '7': 0.5,
+            '8': 0.5,
         },
+        attackStrengthOptions: [7, 8],
     },
 }
 
-const starterPokemonPieces = {};
-const wildPokemonPieces = {};
+/**
+ * 
+ * @param rank 
+ * @returns 
+ */
+const getConfigsByRank = (rank: PokemonPieceRank): { diceRolls: number[], attackStrength: number } => {
+    if (rank === PokemonPieceRank.YELLOW) {
+        return {
+            diceRolls: [6],
+            attackStrength: 8,
+        };
+    }
+
+    const config = pieceConfigByRank[rank];
+    if (!config) {
+        return {
+            diceRolls: [],
+            attackStrength: 0,
+        };
+    }
+
+    const diceRolls: number[] = [];
+    while (diceRolls.length < config.numDiceRolls) {
+        let roll = randomInteger(1, 7);
+        while (diceRolls.includes(roll)) {
+            roll = randomInteger(1, 7);
+        }
+        diceRolls.push(roll);
+    }
+
+    const attackStrength = config.attackStrengthOptions[randomInteger(0, config.attackStrengthOptions.length)];
+
+    return { diceRolls, attackStrength };
+}
+
+/**
+ * 
+ */
+const starterPokemonPieces: PokemonPiece[] = Object.keys(starterPieceByName).map(name => {
+    const { rank, powerPoints, attackStrength } = starterPieceByName[name];
+    const { id, sprite_url } = pokemonSpriteByName[name];
+
+    return {
+        id,
+        name,
+        rank,
+        powerPoints,
+        attackStrength,
+        spriteUrl: sprite_url,
+    };
+});
+
+/**
+ * 
+ */
+const wildPokemonPieces: WildPokemonPiece[] = Object.keys(wildPieceByName).map(name => {
+    const { rank, powerPoints, attackStrength: existingAttack } = wildPieceByName[name];
+    const { id, sprite_url } = pokemonSpriteByName[name];
+
+    const { diceRolls, attackStrength } = getConfigsByRank(rank);
+
+    return {
+        id,
+        name,
+        rank,
+        powerPoints,
+        attackStrength: existingAttack || attackStrength,
+        spriteUrl: sprite_url,
+        diceRolls,
+    };
+});
 
 export { starterPokemonPieces, wildPokemonPieces } 

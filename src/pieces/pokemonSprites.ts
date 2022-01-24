@@ -1,10 +1,13 @@
 export interface PokemonSprite {
-    id?: number,
     generation: string,
     pokemon_variant: string,
     pokemon_name: string,
     sprite_type: string,
     sprite_url: string,
+}
+
+export interface PokemonSpriteWithId extends PokemonSprite {
+  id: number,
 }
 
 export const pokemonSprites: PokemonSprite[] = [
@@ -823,7 +826,7 @@ export const pokemonSprites: PokemonSprite[] = [
     {
       "generation": "1",
       "pokemon_variant": "None",
-      "pokemon_name": "Nidoran_f",
+      "pokemon_name": "Nidoran ♀",
       "sprite_type": "Normal",
       "sprite_url": "https://projectpokemon.org/images/normal-sprite/nidoran_f.gif"
     },
@@ -865,7 +868,7 @@ export const pokemonSprites: PokemonSprite[] = [
     {
       "generation": "1",
       "pokemon_variant": "None",
-      "pokemon_name": "Nidoran_m",
+      "pokemon_name": "Nidoran ♂",
       "sprite_type": "Normal",
       "sprite_url": "https://projectpokemon.org/images/normal-sprite/nidoran_m.gif"
     },

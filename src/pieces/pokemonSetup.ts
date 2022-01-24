@@ -1,5 +1,5 @@
 import { randomInteger } from "../constants";
-import { PokemonPiece, PokemonPieceRank, WildPokemonPiece } from "./gamePieceTypes";
+import { DiceRollValue, PokemonPiece, PokemonPieceRank, WildPokemonPiece } from "./gamePieceTypes";
 import { pokemonSprites, PokemonSprite, PokemonSpriteWithId } from "./pokemonSprites";
 
 /**
@@ -272,7 +272,7 @@ const pieceConfigByRank: { [key in PokemonPieceRank]?: {
  * @param rank 
  * @returns 
  */
-const getConfigsByRank = (rank: PokemonPieceRank): { diceRolls: number[], attackStrength: number } => {
+const getConfigsByRank = (rank: PokemonPieceRank): { diceRolls: DiceRollValue[], attackStrength: number } => {
     if (rank === PokemonPieceRank.YELLOW) {
         return {
             diceRolls: [6],
@@ -288,13 +288,13 @@ const getConfigsByRank = (rank: PokemonPieceRank): { diceRolls: number[], attack
         };
     }
 
-    const diceRolls: number[] = [];
+    const diceRolls: DiceRollValue[] = [];
     while (diceRolls.length < config.numDiceRolls) {
         let roll = randomInteger(1, 7);
-        while (diceRolls.includes(roll)) {
+        while (diceRolls.includes(roll as DiceRollValue)) {
             roll = randomInteger(1, 7);
         }
-        diceRolls.push(roll);
+        diceRolls.push(roll as DiceRollValue);
     }
 
     const attackStrength = config.attackStrengthOptions[randomInteger(0, config.attackStrengthOptions.length)];

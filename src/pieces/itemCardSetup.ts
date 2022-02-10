@@ -4,36 +4,31 @@ import { GameCard, GameCardFields, ItemCardType } from "./gamePieceTypes";
 /**
  * 
  */
-const itemCardTypeConfigs: { [key in ItemCardType]: GameCardFields } = {
+const itemCardTypeConfigs: { [key in ItemCardType]: GameCardFields} = {
     [ItemCardType.ATTACK_BONUS_ONE]: {
         name: 'Attack Bonus (+1)',
         count: 4,
         description: 'Add 1 to your Pokemon Attack Strength.',
-        value: 1,
     },
     [ItemCardType.ATTACK_BONUS_TWO]: {
         name: 'Attack Bonus (+2)',
         count: 4,
         description: 'Add 2 to your Pokemon Attack Strength.',
-        value: 2,
     },
     [ItemCardType.ATTACK_BONUS_THREE]: {
         name: 'Attack Bonus (+3)',
         count: 4,
         description: 'Add 3 to your Pokemon Attack Strength.',
-        value: 3,
     },
     [ItemCardType.ATTACK_BONUS_FOUR]: {
         name: 'Attack Bonus (+4)',
         count: 3,
         description: 'Add 4 to your Pokemon Attack Strength.',
-        value: 4,
     },
     [ItemCardType.ATTACK_BONUS_FIVE]: {
         name: 'Attack Bonus (+5)',
         count: 3,
         description: 'Add 5 to your Pokemon Attack Strength.',
-        value: 5,
     },
     [ItemCardType.FLY]: {
         name: 'Fly',
@@ -44,19 +39,16 @@ const itemCardTypeConfigs: { [key in ItemCardType]: GameCardFields } = {
         name: 'Great Ball',
         count: 6,
         description: 'Before rolling to catch a Pokemon, play this to add or subtract 1 from your roll.',
-        value: 1,
     },
     [ItemCardType.ULTRA_BALL]: {
         name: 'Ultra Ball',
         count: 6,
         description: 'Before rolling to catch a Pokemon, play this to add or subtract 1 or 2, from your roll.',
-        value: 2,
     },
     [ItemCardType.MASTER_BALL]: {
         name: 'Master Ball',
         count: 6,
         description: 'Before rolling to catch a Pokemon, play this to add or subtract 1, 2, 3, or 4, from your roll.',
-        value: 4,
     },
     [ItemCardType.POKE_DOLL]: {
         name: 'Poke Doll',

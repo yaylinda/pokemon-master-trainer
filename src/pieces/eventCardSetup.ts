@@ -1,5 +1,6 @@
 import { shuffle } from "lodash";
-import { EventCardType, GameCard, GameCardFields } from "./gamePieceTypes";
+import { GameActionType } from "../game/gameTypes";
+import { EventCardType, GameCard, GameCardFields, PokemonPieceRank } from "./gamePieceTypes";
 
 /**
  * 
@@ -9,24 +10,45 @@ const eventCardTypeConfigs: { [key in EventCardType]: GameCardFields } = {
         name: 'Chance',
         count: 5,
         description: 'Choose one Pokemon of the color you landed on, including any face-up ones.',
+        getAction: (value: PokemonPieceRank) => {
+            return {
+                action: GameActionType.ENCOUNTER_POKEMON,
+                value,
+            }
+        },
     },
     [EventCardType.DRAW_ONE_ITEM]: {
         name: 'Draw One Item',
         count: 9,
         description: 'Draw one ITEM CARDS from the top of the deck.',
-        value: 1,
+        getAction: () => {
+            return {
+                action: GameActionType.DRAW_ITEM_CARD,
+                value: 1,
+            }
+        },
     },
     [EventCardType.DRAW_TWO_ITEM]: {
         name: 'Draw Two Items',
         count: 5,
         description: 'Draw two ITEM CARDS from the top of the deck.',
-        value: 2,
+        getAction: () => {
+            return {
+                action: GameActionType.DRAW_ITEM_CARD,
+                value: 2,
+            }
+        },
     },
     [EventCardType.DRAW_THREE_ITEM]: {
         name: 'Draw Three Items',
         count: 3,
         description: 'Draw three ITEM CARDS from the top of the deck.',
-        value: 3,
+        getAction: () => {
+            return {
+                action: GameActionType.DRAW_ITEM_CARD,
+                value: 3,
+            }
+        },
     },
     [EventCardType.LETS_FIGHT]: {
         name: 'Let\'s Fight',
@@ -47,6 +69,12 @@ const eventCardTypeConfigs: { [key in EventCardType]: GameCardFields } = {
         name: 'Unknown Dungeon Pokemon',
         count: 10,
         description: 'Choose one Yellow Pokemon chip. Roll to catch \'em.',
+        getAction: () => {
+            return {
+                action: GameActionType.ENCOUNTER_POKEMON,
+                value: PokemonPieceRank.YELLOW,
+            }
+        },
     },
 }
 

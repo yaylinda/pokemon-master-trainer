@@ -1,3 +1,4 @@
+import { GameAction } from "../game/gameTypes";
 import { PokemonPieceRank } from "../pieces/gamePieceTypes";
 
 export interface Gameboard {
@@ -5,13 +6,13 @@ export interface Gameboard {
 }
 
 export interface GameboardCell {
-    id: number,
+    id: string,
     name: string,
     description: string,
-    rank: PokemonPieceRank,
+    rank: PokemonPieceRank | null,
     type: GameboardCellType,
     nextCells: number[],
-    actions: GameboardCellAction[],
+    getAction: () => GameAction | null,
 }
 
 export enum GameboardCellType {
@@ -19,11 +20,6 @@ export enum GameboardCellType {
     INDIGO_PLATEAU = 'INDIGO_PLATEAU',
     POKEMON = 'POKEMON',
     EVENT = 'EVENT',
+    ITEM = 'ITEM',
 }
-
-export enum GameboardCellAction {
-    DRAW_EVENT = 'DRAW_EVENT',
-    ENCOUNTER_POKEMON = 'ENCOUNTER_POKEMON',
-    DRAW_ITEM = 'DRAW_ITEM',
-    FINAL_BATTLE = 'FINAL_BATTLE',
 }

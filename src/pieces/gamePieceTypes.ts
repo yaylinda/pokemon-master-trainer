@@ -1,3 +1,5 @@
+import { GameAction } from "../game/gameTypes";
+
 export interface PokemonPiece {
     id: number,
     name: string,
@@ -33,11 +35,11 @@ export interface GameCardFields {
     name: string,
     count: number,
     description: string,
-    value?: number,
+    getAction?: (value: any) => GameAction;
 }
 
-export interface GameCard<T = ItemCardType | EventCardType> extends GameCardFields {
-    type: T,
+export interface GameCard<T, CardType = ItemCardType | EventCardType> extends GameCardFields {
+    type: CardType,
 }
 
 export enum ItemCardType {

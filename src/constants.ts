@@ -1,3 +1,9 @@
+import keyMirror from "key-mirror";
+
+export const localStorageKeys = keyMirror({
+  USER_ID: null,
+});
+
 export const POKEMON_MASTER_TRAINER_COOKIE_NAME = 'POKEMON_MASTER_TRAINER_COOKIE';
 
 const POKEMON_COLORS = [

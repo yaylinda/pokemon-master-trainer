@@ -3,6 +3,10 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 
+///////////////////////////////////////////////////////////
+// SET UP
+///////////////////////////////////////////////////////////
+
 const app = express();
 const httpServer = http.createServer(app);
 const socketServer = socketIo(httpServer);
@@ -29,14 +33,55 @@ app.use(
   })
 );
 
+///////////////////////////////////////////////////////////
+// VARIABLES & LOGIC
+///////////////////////////////////////////////////////////
+
+const onlineUserIds = new Set([]);
+
+///////////////////////////////////////////////////////////
+// REST ENDPOINTS
+///////////////////////////////////////////////////////////
+
+/**
+ * Health check endpoint
+ */
 app.get("/healthcheck", async (req, res) => {
   res.status(200).send();
 });
+
+/**
+ * Login and set userId as online
+ */
+app.post("/login", (req, res) => {
+  const { id } = req.body;
+  req.session.userId = id;
+  onlineUserIds.add(id);
+  res.status(200).send();
+});
+
+/**
+ * Logout and remove userId from online users
+ */
+app.post("/logout", (req, res) => {
+  const { userId } = req.session;
+  onlineUserIds.delete(userId);
+  req.session = null;
+  res.status(200).send();
+});
+
+///////////////////////////////////////////////////////////
+// SOCKET MESSAGE HANDLERS
+///////////////////////////////////////////////////////////
 
 socketServer.sockets.on("connection", (socket) => {
   socket.on('EVENT', () => {});
 });
 
+///////////////////////////////////////////////////////////
+// OPEN LISTEN
+///////////////////////////////////////////////////////////
+
 httpServer.listen(8000, function () {
-  console.log("listening on *:3456");
+  console.log("listening on *:3000");
 });

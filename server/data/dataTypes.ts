@@ -1,7 +1,8 @@
 export interface Game {
     status: GameStatus,
     createdAt: number, // timestamp in seconds,
-    
+    createdBy: string,
+    players: string[],
 }
 
 export enum GameStatus {

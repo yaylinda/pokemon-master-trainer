@@ -1,4 +1,4 @@
-import { GameAction } from "../game/gameTypes";
+import { GameAction } from "../gameTypes";
 import { PokemonPieceRank } from "../pieces/gamePieceTypes";
 
 export interface Gameboard {
@@ -21,5 +21,4 @@ export enum GameboardCellType {
     POKEMON = 'POKEMON',
     EVENT = 'EVENT',
     ITEM = 'ITEM',
-}
 }

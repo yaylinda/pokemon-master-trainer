@@ -1,4 +1,4 @@
-import { GameAction } from "../game/gameTypes";
+import { GameAction } from "../gameTypes";
 
 export interface PokemonPiece {
     id: number,

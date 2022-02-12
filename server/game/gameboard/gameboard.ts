@@ -1,5 +1,5 @@
 import { isEmpty, shuffle } from "lodash";
-import { GameActionType } from "../game/gameTypes";
+import { GameActionType } from "../gameTypes";
 import { PokemonPieceRank } from "../pieces/gamePieceTypes";
 import { GameboardCell, GameboardCellType } from "./gameboardTypes";
 
@@ -225,8 +225,9 @@ const generateIndigoPlateauCells = (): GameboardCell[] => {
             name: '',
             description: 'Draw 1 Item Card',
             rank: null,
-            type: GameboardCellType.ITE,
-            getAction: () => null  
+            type: GameboardCellType.ITEM,
+            getAction: () => null  ,
+            nextCells: [],
         },
         {
             id: 'indigoCell_2',

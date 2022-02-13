@@ -1,3 +1,6 @@
+import { clientEvents, serverEvents } from "../common/socketEvents";
+import * as db from './data/database';
+
 const cookieSession = require("cookie-session");
 const express = require("express");
 const http = require("http");
@@ -54,9 +57,10 @@ app.get("/healthcheck", async (req, res) => {
  * Login and set userId as online
  */
 app.post("/login", (req, res) => {
-  const { id } = req.body;
-  req.session.userId = id;
-  onlineUserIds.add(id);
+  const { userId } = req.body;
+  req.session.userId = userId;
+  console.log(`[/login] - ${userId} has come online`);
+  onlineUserIds.add(userId);
   res.status(200).send();
 });
 
@@ -65,6 +69,7 @@ app.post("/login", (req, res) => {
  */
 app.post("/logout", (req, res) => {
   const { userId } = req.session;
+  console.log(`[/logout] - ${userId} has gone offline`);
   onlineUserIds.delete(userId);
   req.session = null;
   res.status(200).send();
@@ -75,7 +80,10 @@ app.post("/logout", (req, res) => {
 ///////////////////////////////////////////////////////////
 
 socketServer.sockets.on("connection", (socket) => {
-  socket.on('EVENT', () => {});
+  socket.on(clientEvents.REQUEST_GAMES_FOR_USER, async ({ userId }) => {
+    const games = await db.getGamesByUserId(userId);
+    socket.emit(serverEvents.SEND_GAMES_FOR_USER, games);
+  });
 });
 
 ///////////////////////////////////////////////////////////

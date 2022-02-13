@@ -1,7 +1,5 @@
 import { isEmpty, shuffle } from "lodash";
-import { GameActionType } from "../gameTypes";
-import { PokemonPieceRank } from "../pieces/gamePieceTypes";
-import { GameboardCell, GameboardCellType } from "./gameboardTypes";
+import { GameboardCell, GameboardCellType, GameActionType, PokemonPieceRank } from "../../common/types";
 
 const numPinkCells = 15; // 10 pokemon, 5 events
 const numGreenCells = 19; // 10 pokemon, 9 events

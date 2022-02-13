@@ -1,11 +1,17 @@
 import { Button, Container, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { LandingPageProps } from './landingPageTypes';
+import { useUserStore } from '../../stores/userStore';
 
-function LandingPage({ gameCookies }: LandingPageProps) {
+function LandingPage() {
 
+    const { user } = useUserStore();
+    
     const createNewGame = () => {
 
+    }
+
+    if (!user) {
+        return null;
     }
 
     return (
@@ -14,7 +20,7 @@ function LandingPage({ gameCookies }: LandingPageProps) {
                 Welcome to Pokemon Master Trainer Online!
             </Typography>
             <Typography variant="h4" component="div">
-                Your name is: {gameCookies.displayName}
+                Trainer Name: {user.username}
             </Typography>
 
             <Button variant="contained" onClick={createNewGame}>Start New Game</Button>

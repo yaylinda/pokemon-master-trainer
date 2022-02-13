@@ -1,5 +1,5 @@
 import { shuffle } from "lodash"
-import { GameCard, GameCardFields, ItemCardType } from "./gamePieceTypes";
+import { GameCard, GameCardFields, ItemCardType } from "../../../common/types";
 
 /**
  * 

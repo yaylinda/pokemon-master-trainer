@@ -1,35 +1,10 @@
-import { AppBar, Avatar, Toolbar, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { GameCookies } from './commonTypes';
-import { generateTrainerName, POKEMON_MASTER_TRAINER_COOKIE_NAME } from './constants';
+import { AppBar, Avatar, Toolbar, Typography } from '@mui/material';
 import GamePage from './routes/game/GamePage';
 import LandingPage from './routes/landing/LandingPage';
 
 function App() {
-
-    const [cookies, setCookie, removeCookie] = useCookies([POKEMON_MASTER_TRAINER_COOKIE_NAME]);
-
-    const [gameCookies, setGameCookies] = useState<GameCookies | null>(null);
-
-    useEffect(() => {
-        const existingGameCookies = cookies[POKEMON_MASTER_TRAINER_COOKIE_NAME] as GameCookies;
-        if (!existingGameCookies) {
-            const newGameCookies = {
-                cookieId: uuidv4(),
-                displayName: generateTrainerName(),
-            };
-
-            console.log(`[App][useEffect] setting newGameCookies: ${JSON.stringify(newGameCookies)}`);
-            setCookie(POKEMON_MASTER_TRAINER_COOKIE_NAME, newGameCookies);
-            setGameCookies(newGameCookies);
-        } else {
-            setGameCookies(existingGameCookies);
-            console.log(`[App][useEffect] setting cookies from existingGameCookies: ${JSON.stringify(existingGameCookies)}`);
-        }
-    }, []);
 
     return (
         <>
@@ -43,14 +18,10 @@ function App() {
                 </Toolbar>
             </AppBar>
 
-            {
-                gameCookies ? (
-                    <Routes>
-                        <Route path="/" element={<LandingPage gameCookies={gameCookies} />} />
-                        <Route path="game/:id" element={<GamePage gameCookies={gameCookies} />} />
-                    </Routes>
-                ) : null
-            }
+            <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="game/:id" element={<GamePage />} />
+            </Routes>
         </>
     );
 }

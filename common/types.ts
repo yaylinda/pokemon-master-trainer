@@ -1,4 +1,56 @@
-import { GameAction } from "../gameTypes";
+export interface User {
+    userId: string,
+    username: string,
+}
+
+export interface Game {
+    id: string,
+    status: GameStatus,
+    createdAt: number, // timestamp in seconds,
+    createdBy: string,
+    players: string[],
+    gameboard: Gameboard,
+}
+
+export enum GameStatus {
+    WAITING = 'WAITING',
+    IN_PROGRESS = 'IN_PROGRESS',
+    COMPLETED = 'COMPLETED',
+}
+
+export enum GameActionType {
+    DRAW_ITEM_CARD = 'DRAW_ITEM', 
+    DRAW_EVENT_CARD = 'DRAW_ITEM',
+    ENCOUNTER_POKEMON = 'ENCOUNTER_POKEMON',
+    REVIVE_POKEMON = 'REVIVE_POKEMON', 
+}
+
+export interface GameAction {
+    action: GameActionType,
+    metadata?: { value: any}
+}
+
+export interface Gameboard {
+    cells: GameboardCell[],
+}
+
+export interface GameboardCell {
+    id: string,
+    name: string,
+    description: string,
+    rank: PokemonPieceRank | null,
+    type: GameboardCellType,
+    nextCells: number[],
+    getAction: () => GameAction | null,
+}
+
+export enum GameboardCellType {
+    CITY = 'CITY',
+    INDIGO_PLATEAU = 'INDIGO_PLATEAU',
+    POKEMON = 'POKEMON',
+    EVENT = 'EVENT',
+    ITEM = 'ITEM',
+}
 
 export interface PokemonPiece {
     id: number,

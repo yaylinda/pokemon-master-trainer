@@ -1,6 +1,5 @@
 import { shuffle } from "lodash";
-import { GameActionType } from "../gameTypes";
-import { EventCardType, GameCard, GameCardFields, PokemonPieceRank } from "./gamePieceTypes";
+import { EventCardType, GameCard, GameCardFields, PokemonPieceRank, GameActionType } from "../../../common/types";
 
 /**
  * 

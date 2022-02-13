@@ -1,5 +1,5 @@
-import { randomInteger } from "../constants";
-import { DiceRollValue, PokemonPiece, PokemonPieceRank, WildPokemonPiece } from "./gamePieceTypes";
+import { randomInteger } from "../../../common/util";
+import { DiceRollValue, PokemonPiece, PokemonPieceRank, WildPokemonPiece } from "../../../common/types";
 import { pokemonSprites, PokemonSprite, PokemonSpriteWithId } from "./pokemonSprites";
 
 /**

@@ -1,8 +1,6 @@
-import keyMirror from "key-mirror";
+import { randomInteger } from "../common/util";
 
-export const localStorageKeys = keyMirror({
-  USER_ID: null,
-});
+export const USER_LOCAL_STORAGE_KEY = "USER";
 
 export const POKEMON_MASTER_TRAINER_COOKIE_NAME = 'POKEMON_MASTER_TRAINER_COOKIE';
 
@@ -40,14 +38,4 @@ export const generateTrainerName = () => {
     const randNum = randomInteger(10, 100);
 
     return `Pokemon Trainer ${color}_${randNum}`;
-}
-
-/**
- * 
- * @param min 
- * @param max 
- * @returns 
- */
-export const randomInteger = (min: number, max: number) => {
-  return Math.floor(Math.random() * (Math.floor(max) -  Math.ceil(min)) +  Math.ceil(min));
 }

@@ -1,5 +1,5 @@
 import { chunk, shuffle} from 'lodash';
-import { DiceRollValue, RivalCard } from "./gamePieceTypes";
+import { DiceRollValue, RivalCard } from "../../../common/types";
 
 const DICE_ARRAY: DiceRollValue[]  = [1, 2, 3, 4, 5, 6];
 const ATTACK_BONUSES = [6, 7, 8];

@@ -1,9 +1,8 @@
 import { Container } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router';
-import { GamePageProps } from './gamePageTypes';
 
-function GamePage({ gameCookies }: GamePageProps) {
+function GamePage() {
     const params = useParams();
 
     return (

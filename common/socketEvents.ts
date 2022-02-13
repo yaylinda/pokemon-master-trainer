@@ -1,9 +1,7 @@
-import keyMirror from "key-mirror";
+export const serverEvents = {
+    SEND_GAMES_FOR_USER: 'SEND_GAMES_FOR_USER',
+};
 
-export const serverEvents = keyMirror({
-    SEND_GAMES_FOR_USER: null,
-});
-
-export const clientEvents = keyMirror({
-    REQUEST_GAMES_FOR_USER: null,
-});
+export const clientEvents = {
+    REQUEST_GAMES_FOR_USER: 'REQUEST_GAMES_FOR_USER',
+};

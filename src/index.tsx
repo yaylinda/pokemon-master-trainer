@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import App from './App';
 import { USER_LOCAL_STORAGE_KEY, generateTrainerName } from './constants';
 import { logIn } from './api';
-import { User } from '../common/types';
+import { User } from 'pokemon-master-trainer-common/types';
 import './index.css';
 
 const storedUser = window.localStorage.getItem(USER_LOCAL_STORAGE_KEY);

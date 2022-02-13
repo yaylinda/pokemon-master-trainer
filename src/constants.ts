@@ -1,4 +1,4 @@
-import { randomInteger } from "../common/util";
+import { randomInteger } from "./util";
 
 export const USER_LOCAL_STORAGE_KEY = "USER";
 

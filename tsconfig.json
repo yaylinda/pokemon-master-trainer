@@ -16,14 +16,14 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx"
   },
   "include": [
-    "src", 
-    "server/game", 
-    "server/data", 
+    "client/src", 
+    "client/server/game", 
+    "client/server/data", 
     "common",
   ]
 }
